@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flood & Landslide Risk Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body onload="askPermission()">
+    <div class="container">
+        <h1>🌊 Flood & Landslide Risk Prediction</h1>
+        <p>Get real-time risk alerts based on your location or any place you choose.</p>
+
+        <!-- Manual Place Input -->
+        <input type="text" id="placeInput" placeholder="Enter full address or place">
+        <button onclick="loginWithPlaceName()">Check Place</button>
+
+        <hr>
+
+        <!-- Live Location Tracking -->
+        <button onclick="loginWithLiveLocation()">Track My Live Location</button>
+
+        <div id="result"></div>
+
+        <!-- Map Container -->
+        <div id="map"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
