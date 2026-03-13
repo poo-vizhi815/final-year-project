@@ -2,24 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flood & Landslide Risk Prediction</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 </head>
-<body onload="askPermission()">
+<body onload="initializeApp()">
     <div class="container">
-        <h1>🌊 Flood & Landslide Risk Prediction</h1>
-        <p>Get real-time risk alerts based on your location or any place you choose.</p>
+        <header>
+            <h1>🌊 Flood & Landslide Risk Prediction System</h1>
+            <p>Get real-time risk alerts based on your location or any place you choose</p>
+        </header>
 
-        <input type="text" id="placeName" placeholder="Enter place name">
-        <button onclick="loginWithPlaceName()">Check Place</button>
+        <div class="controls">
+            <div class="input-section">
+                <input type="text" id="placeName" placeholder="Enter place name (e.g., Madhanur, Munnar, Delhi)">
+                <button onclick="searchPlace()" class="btn-primary">Check Place</button>
+            </div>
 
-        <hr>
+            <div class="button-section">
+                <button onclick="getUserLocation()" class="btn-info">📍 Track My Location</button>
+                <p class="hint">💡 Tip: Right-click on the map to select any location</p>
+            </div>
+        </div>
 
-        <button onclick="loginWithLiveLocation()">Track My Live Location</button>
-
-        <div id="result"></div>
         <div id="map"></div>
+
+        <div id="resultPanel" class="result-panel hidden">
+            <div class="result-content">
+                <h2>Prediction Results</h2>
+                <div class="result-grid">
+                    <div class="result-item">
+                        <span class="label">Location:</span>
+                        <span id="resultLocation" class="value">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Flood Risk:</span>
+                        <span id="resultFloodRisk" class="value">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Rainfall:</span>
+                        <span id="resultRainfall" class="value">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Rainfall Status:</span>
+                        <span id="resultRainfallStatus" class="value">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Landslide Risk:</span>
+                        <span id="resultLandslide" class="value">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Temperature:</span>
+                        <span id="resultTemp" class="value">-</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="label">Humidity:</span>
+                        <span id="resultHumidity" class="value">-</span>
+                    </div>
+                </div>
+                <div id="recommendation" class="recommendation">
+                    <strong>Recommendation:</strong> <span id="recommendationText">-</span>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Data powered by OpenWeatherMap & OpenStreetMap | ⚠️ Stay Safe!</p>
+        </footer>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
